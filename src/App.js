@@ -1,26 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+class App extends React.Component{
+constructor(props){
+  super(props);
+  this.state={
+    locations: [
+      {name:"Bali",votes:0},
+      {name:"London",votes:0},
+      {name:"Berlin",votes:0},
+      {name:"Belguim",votes:0},
+          ],
+  };
+}
+vote(i){
+  let newlocations=[...this.state.locations];
+  newlocations[i].votes++;
+  this.setState({locations:newlocations})
+}
+
+render(){
+  return(
+    <>
+    <h1>Vote for destination</h1>
+    <div className="locations">
+        {this.state.locations.map((loc,i)=>(
+          <div key={i} className="location">
+          <div className="voteCount">{loc.votes}</div>
+          <div className="locationName">{loc.name}</div>
+          <button onClick={this.vote.bind(this,i)}>click</button>
+          </div>
+        ))}
     </div>
+    </>
   );
 }
+
+}
+
+
 
 export default App;
